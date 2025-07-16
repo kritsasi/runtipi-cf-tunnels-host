@@ -1,0 +1,22 @@
+services:
+  event-listener:
+    build:
+      context: shell
+      dockerfile: Dockerfile
+    image: runtipi-cf-tunnels-host
+    container_name: runtipi-cf-tunnels-host
+    environment:
+      - CF_API__URL_HTTPS=${CF_API__URL_HTTPS}                
+      - CF_DNS__ACCOUNTS__SCOPED_ID=${CF_DNS__ACCOUNTS__SCOPED_ID}  
+      - CF_DNS__ACCOUNTS__SCOPED_TUNNEL=${CF_DNS__ACCOUNTS__SCOPED_TUNNEL}  
+      - CF_DNS__ACCOUNTS__SUB_TUNNEL=${CF_DNS__ACCOUNTS__SUB_TUNNEL}
+      - CF_DNS__DOMAINS_0__NAME=${CF_DNS__DOMAINS_0__NAME}
+      - CF_DNS__ACCOUNTS__SCOPED_ZONE=${CF_DNS__ACCOUNTS__SCOPED_ZONE}
+      - CF_DNS__AUTH__SCOPED_TOKEN=${CF_DNS__AUTH__SCOPED_TOKEN}           
+      - CF_DNS__INGRESS_SERVICE=${CF_DNS__INGRESS_SERVICE}
+      - CF_DNS__NO_TLS__VERIFY=${CF_DNS__NO_TLS__VERIFY}
+      - CF_DNS__DOMAINS_0__PROXIED=${CF_DNS__DOMAINS_0__PROXIED}
+      - TZ=Asia/Bangkok
+    command: ["node", "watch-containers.js"]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
